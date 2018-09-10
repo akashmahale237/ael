@@ -1,0 +1,26 @@
+clc;
+N = input("Enter the number of channels in the system: ");
+ConCh = input("Enter the number of control channels in the system ");
+VoiCh = (N-ConCh);
+K = input("Enter size of the cluster: ");
+mat= zeros(K, ceil(N/K));
+disp('Fixed Channel Allocation Technique')
+VoiCPC = floor(VoiCh./K);
+ConCPC = floor(ConCh./K);
+disp(VoiCPC,"Total number of voice channels are :")
+disp(ConCPC,"Total number of control cahnnels are :")
+c = 1;
+for j = 1:ceil(N/K)
+for i = 1:K
+if c > N then
+mat(i)(j) = 0;
+else
+mat(i)(j) = c;
+end
+c = c + 1;
+end
+end
+for i = 1:K
+disp(i, "Channels assigned per cell :-");
+disp(mat(i,:));
+end

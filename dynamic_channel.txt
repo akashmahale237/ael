@@ -1,0 +1,69 @@
+clc;
+tr_ch=50
+con_ch=12
+usable_ch=tr_ch-con_ch;
+priority = grand(38,1,"uin", 1,10);
+a=1
+b=1
+for i=1:usable_ch
+if (priority(i)<=5) then
+high_priority(a)=i
+priority_h(a)=priority(i)
+a=a+1
+else
+low_priority(b)=i
+priority_l(b)=priority(i)
+b=b+1
+end
+end
+printf("\n The high priority channels are:");
+for i=1:(a-1)
+printf("%d)%d:%d\t",i,priority_h(i),high_priority(i));
+end
+printf("\n The low priority channels are:");
+for i=1:(b-1)
+printf("%d)%d:%d\t",i,priority(i),low_priority(i));
+end
+cluster_size=input('Enter valid cluster size less than or equal to 9 ')
+totalcalls=0;
+for i=1:cluster_size
+printf("Enter the demand of call for cell %d: ",i);
+r=scanf("%d");
+demand_call(i)=r;
+totalcalls=totalcalls+r;
+end
+no_hpch=19 / cluster_size;
+rem_hpch=modulo(19,cluster_size)
+printf("\n%d,%d",no_hpch,rem_hpch);
+indh=1
+indl=1
+cnt=1
+disp(totalcalls)
+for i=1:cluster_size
+per_demand(i)=(demand_call(i)/totalcalls);
+end
+disp(per_demand)
+for i=1:cluster_size
+q=38*per_demand(i)
+printf("\n Cell allocated to cell %d:[ ",i);
+y=ceil(q)
+usable_ch=usable_ch-y;
+if usable_ch<0 then
+usable_ch=usable_ch+y;
+y=floor(q);
+usable_ch=usable_ch-y;
+end
+for k=1:y
+if cnt>=a then
+printf("l%d:%d ",priority_l(indl),low_priority(indl));
+indl=indl+1
+cnt=cnt+1
+elseif cnt>=37
+printf("Extra")
+else
+printf("h%d:%d, ",priority_h(indh),high_priority(indh));
+indh=indh+1
+cnt=cnt+1
+end
+end
+end
