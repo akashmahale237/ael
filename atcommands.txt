@@ -1,0 +1,19 @@
+at
+at+csq
+
+at+cmgf=1
+at+cmgs="992023435"
+msg
+cntrl z
+
+at+gsni=?
+
+at+cops=?
+at+creg=2
+
+at+cgmi
+
+atd9939039049
+
+at+cgsn
+
