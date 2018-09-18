@@ -1,0 +1,27 @@
+import serial
+import time
+phone = serial.Serial("/dev/ttyUSB0", 115200, timeout = 5)
+try:
+	phone.write('AT\r')
+	time.sleep(0.2)
+	print(phone.read(256))
+	phone.write('AT+CSQ\r')
+	time.sleep(0.2)
+	print(phone.read(256))
+	phone.write('AT+CMGF=1\r')
+	time.sleep(0.2)
+	print(phone.read(256))
+	phone.write(‘AT+CMGS="+919757087012"\r')
+	time.sleep(0.2)
+	phone.write('Hii \r')
+	time.sleep(0.2)
+	phone.write(chr(26))
+	print(phone.read(256))
+	phone.write('AT+CREG=2\r')
+	time.sleep(5)
+	print(phone.read(256))
+	phone.write('AT+COPS=?\r')
+	time.sleep(40)
+	print(phone.read(2560))
+finally:
+	phone.close(
